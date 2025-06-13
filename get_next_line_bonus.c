@@ -44,6 +44,7 @@ char	*ft_line(char *buffer)
 {
 	char	*line;
 	size_t	len;
+	size_t	i;
 
 	len = 0;
 	while (buffer[len] && buffer[len] != '\n')
@@ -53,14 +54,12 @@ char	*ft_line(char *buffer)
 	line = malloc(len + 1);
 	if (!line)
 		return (NULL);
-	len = 0;
-	while (buffer[len] && buffer[len] != '\n')
+	i = 0;
+	while (i < len)
 	{
-		line[len] = buffer[len];
-		len++;
+		line[i] = buffer[i];
+        i++;
 	}
-	if (buffer[len] == '\n')
-		line[len++] = '\n';
 	line[len] = '\0';
 	return (line);
 }
