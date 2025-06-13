@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 17:42:46 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/09 17:42:46 by marvin           ###   ########.fr       */
+/*   Created: 2025/06/13 14:40:38 by marvin            #+#    #+#             */
+/*   Updated: 2025/06/13 14:40:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_line(int fd, char **stash)
 {
@@ -89,16 +89,16 @@ char	*ft_renew_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1024)
 		return (NULL);
-	if (!read_line(fd, &stash) && !stash)
+	if (!read_line(fd, &stash[fd]) && !stash[fd])
 		return (NULL);
-	line = ft_line(stash);
+	line = ft_line(stash[fd]);
 	if (!line)
 		return (NULL);
-	stash = ft_renew_buffer(stash);
+	stash[fd] = ft_renew_buffer(stash[fd]);
 	return (line);
 }
