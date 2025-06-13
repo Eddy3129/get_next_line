@@ -77,11 +77,6 @@ char	*ft_renew_buffer(char *buffer)
 		len++;
 	if (buffer[len] && buffer[len] == '\n')
 		len++;
-	if (buffer[len] == '\0')
-	{
-		free(buffer);
-		return (NULL);
-	}
 	new = ft_substr(buffer, len, ft_strlen(buffer) - len);
 	free(buffer);
 	return (new);
@@ -94,7 +89,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!read_line(fd, &stash) && !stash)
+	if (!read_line(fd, &stash))
 		return (NULL);
 	line = ft_line(stash);
 	if (!line)
